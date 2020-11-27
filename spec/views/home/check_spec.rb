@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe 'home/check', type: :view do
-    it 'has a title' do
+    it 'has a response' do
         render
-        expect(rendered).to have_content('This postcode is in service area')
+        expect(rendered).to have_content('(negative) This postcode is NOT in service area')
     end
 end
