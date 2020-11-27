@@ -1,0 +1,13 @@
+<h1>Postcode service area checker</h1>
+
+<p>Please enter postcode you wish to check below and press "check"</p>
+
+<%= form_tag postcode_check_path, method: :get do %>
+    <fieldset>
+        <%= label_tag 'postcode', 'Postcode' %>
+        <%= text_field_tag 'postcode' %>
+    </fieldset>
+    <fieldset>
+        <%= submit_tag 'Check' %>
+    </fieldset>
+<% end %>

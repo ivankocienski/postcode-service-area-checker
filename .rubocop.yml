@@ -9,10 +9,21 @@
 #
 # See https://docs.rubocop.org/rubocop/configuration
 AllCops:
-  Exclude:
-    - 'config/**/*'
-    - 'bin/**/*'
+    Exclude:
+        - 'config/**/*'
+        - 'bin/**/*'
+
 Bundler/OrderedGems:
     Enabled: false
+
+Layout/IndentationWidth:
+    Width: 4
+
 Style/Documentation:
+    Enabled: false
+
+Style/FrozenStringLiteralComment:
+    Enabled: false
+
+Layout/TrailingEmptyLines:
     Enabled: false
