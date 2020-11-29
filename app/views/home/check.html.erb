@@ -1,1 +1,7 @@
-<p>(negative) This postcode is NOT in service area</p>
+<% if @postcode_in_service_area %>
+    <p>(positive) This postcode IS in service area</p>
+
+<% else %>
+    <p>(negative) This postcode is NOT in service area</p>
+
+<% end %>
