@@ -14,7 +14,7 @@ class Postcode
 
     def fetch_test!
         @response = {}
-        @response_data = FAKE_DATA[text_normalized]
+        @response_data = FAKE_DATA[clean_text]
         @response_code = @response_data ? RESPONSE_CODE_FOUND : -1
     end
 
@@ -26,14 +26,12 @@ class Postcode
 
     public
 
-    attr_reader :original, :response, :response_code, :response_data
+    attr_reader :clean_text, :response, :response_code, :response_data
 
-    def initialize(text)
-        @original = text || ''
+    def initialize(clean_text)
+        @clean_text = clean_text
         @response_code = -1
         @response_data = {}
-
-        return if text_normalized.empty?
 
         if Rails.env.test?
             fetch_test!
@@ -42,16 +40,8 @@ class Postcode
         end
     end
 
-    def text_normalized
-        @text_normalized ||=
-            @original
-            .strip
-            .gsub(/\s+/, '')
-            .upcase
-    end
-
     def url
-        @url ||= "#{ENDPOINT}#{text_normalized}"
+        @url ||= "#{ENDPOINT}#{clean_text}"
     end
 
     ## outputs
@@ -60,6 +50,7 @@ class Postcode
     end
 
     def lsoa
-        response_data['result']['lsoa'] if response_okay?
+        return response_data['result']['lsoa'] if response_okay?
+        ''
     end
 end
