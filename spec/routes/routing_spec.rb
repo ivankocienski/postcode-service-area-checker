@@ -9,9 +9,9 @@ describe 'Routing', type: :routing do
         end
     end
 
-    context '/check' do
+    context '/check_postcode' do
         it 'routes to the check action' do
-            expect(get: '/check').to route_to('home#check')
+            expect(get: '/check_postcode').to route_to('home#check_postcode')
         end
     end
 end

@@ -4,17 +4,31 @@ module PostcodeChecker
 
         def postcode_in_area?(postcode_param)
             clean_text = normalize_postcode_text(postcode_param)
-            return false if clean_text.empty?
 
-            # local allow list
-            return true if AllowList.contains_postcode?(clean_text)
+            return false unless valid_postcode_string?(clean_text)
 
-            # check remote service
+            return true if postcode_in_allow_list?(clean_text)
+
+            return true if postcode_in_lsoa?(clean_text)
+
+            false
+        end
+
+        # helper methods
+
+        def valid_postcode_string?(text)
+            text =~ POSTCODE_PATTERN
+        end
+
+        def postcode_in_allow_list?(text)
+            AllowList.contains_postcode? text
+        end
+
+        def postcode_in_lsoa?(text)
             postcode_lookup = RemoteDataAPI.new
-            postcode_lookup.lookup_postcode clean_text
+            postcode_lookup.lookup_postcode text
 
             if postcode_lookup.response_okay?
-
                 allowed_lsoa_list.each do |lsoa_matcher|
                     return true if postcode_lookup.lsoa =~ lsoa_matcher
                 end
@@ -35,5 +49,6 @@ module PostcodeChecker
         end
 
         ALLOWED_LSOA_LIST_STRINGS = %w[Lambeth Southwark].freeze
+        POSTCODE_PATTERN = /^[A-Z0-9]+$/.freeze
     end
 end

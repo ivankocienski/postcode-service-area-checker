@@ -3,5 +3,5 @@
 Rails.application.routes.draw do
     root 'home#root'
 
-    get '/check' => 'home#check', as: :postcode_check
+    get '/check_postcode' => 'home#check_postcode', as: :check_postcode
 end
