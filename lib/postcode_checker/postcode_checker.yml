@@ -1,0 +1,8 @@
+---
+override_postcode_list:
+  - SH24 1AA
+  - SH24 1AB
+
+allowed_lsoa_list:
+  - Southwark
+  - Lambeth

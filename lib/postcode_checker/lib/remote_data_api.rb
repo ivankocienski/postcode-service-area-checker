@@ -5,20 +5,16 @@ module PostcodeChecker
         RESPONSE_CODE_FOUND = 200
         RESPONSE_CODE_NULL = -1
 
-        ENDPOINT = 'https://postcodes.io/postcodes/'.freeze
-
         attr_reader :clean_text, :response, :response_code, :response_data
 
-        def initialize
-            @clean_text = ''
+        def initialize(postcode_string)
+            @clean_text = postcode_string
             @response_code = RESPONSE_CODE_NULL
             @response_data = {}
         end
 
-        def lookup_postcode(postcode_string)
-            @clean_text = postcode_string
-
-            if Rails.env.test?
+        def lookup_postcode
+            if Config.in_test_mode?
                 fetch_test!
             else
                 fetch_live!
@@ -26,7 +22,7 @@ module PostcodeChecker
         end
 
         def url
-            @url ||= "#{ENDPOINT}#{clean_text}"
+            @url ||= "https://#{Config.postcodes_io_endpoint}#{clean_text}"
         end
 
         ## outputs
@@ -42,14 +38,9 @@ module PostcodeChecker
 
         private
 
-        FAKE_DATA = {
-            'SE17QD' => { 'result' => { 'lsoa' => 'Southwark' } },
-            'SE17QA' => { 'result' => { 'lsoa' => 'Lambeth' } }
-        }.freeze
-
         def fetch_test!
             @response = {}
-            @response_data = FAKE_DATA[clean_text]
+            @response_data = Config.postcodes_io_fake_data[clean_text]
             @response_code = @response_data ? RESPONSE_CODE_FOUND : -1
         end
 

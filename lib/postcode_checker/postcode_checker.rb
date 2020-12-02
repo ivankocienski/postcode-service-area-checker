@@ -1,3 +1,4 @@
+require File.join(Rails.root, 'lib/postcode_checker/lib/config')
 require File.join(Rails.root, 'lib/postcode_checker/lib/core')
 require File.join(Rails.root, 'lib/postcode_checker/lib/allow_list')
 require File.join(Rails.root, 'lib/postcode_checker/lib/remote_data_api')

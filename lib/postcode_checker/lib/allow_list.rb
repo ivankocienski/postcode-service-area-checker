@@ -2,10 +2,14 @@ module PostcodeChecker
     module AllowList
         module_function
 
-        ALLOW_LIST = %w[SH241AA SH241AB].freeze
-
         def contains_postcode?(clean_text)
-            ALLOW_LIST.find_index(clean_text) != nil
+            return false if Config.allow_postcodes_empty?
+
+            allowed_postcodes.find_index(clean_text) != nil
+        end
+
+        def allowed_postcodes
+            @allowed_postcodes ||= Config.allow_postcodes.map { |text| text.gsub(/\s+/, '').upcase }
         end
     end
 end
