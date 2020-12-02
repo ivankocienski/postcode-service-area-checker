@@ -19,7 +19,7 @@ describe HomeController, type: :controller do
         end
 
         it 'sets up postcode flag' do
-            get :check, params: { postcode: 'se7 1qd'}
+            get :check, params: { postcode: 'se7 1qd' }
             expect(assigns[:postcode_in_service_area]).not_to be_nil
         end
     end
