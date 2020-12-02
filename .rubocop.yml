@@ -17,7 +17,7 @@ Bundler/OrderedGems:
     Enabled: false
 
 Layout/IndentationWidth:
-    Width: 4
+    Width: 2
 
 Style/Documentation:
     Enabled: false

@@ -3,11 +3,11 @@
 <p>Please enter postcode you wish to check below and press "check"</p>
 
 <%= form_tag check_postcode_path, method: :get do %>
-    <fieldset>
-        <%= label_tag 'postcode', 'Postcode' %>
-        <%= text_field_tag 'postcode' %>
-    </fieldset>
-    <fieldset>
-        <%= submit_tag 'Check' %>
-    </fieldset>
+  <fieldset>
+    <%= label_tag 'postcode', 'Postcode' %>
+    <%= text_field_tag 'postcode' %>
+  </fieldset>
+  <fieldset>
+    <%= submit_tag 'Check' %>
+  </fieldset>
 <% end %>
