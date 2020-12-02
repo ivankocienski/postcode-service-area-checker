@@ -5,6 +5,7 @@ module PostcodeChecker
         clean_text = normalize_postcode_text(postcode_param)
         return false if clean_text.empty?
 
+        # check remote service
         postcode_lookup = Postcode.new(clean_text)
         if postcode_lookup.response_okay?
 
@@ -12,12 +13,11 @@ module PostcodeChecker
             return true if postcode_lookup.lsoa =~ /^Southwark\b?/i
         end
 
+        # local allow list
         return true if PostcodeAllowList.contains_postcode?(clean_text)
 
         false
     end
-
-    module_function
 
     def normalize_postcode_text(postcode_param)
         (postcode_param || '')
